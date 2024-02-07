@@ -8,8 +8,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
 
-task:
-  allowMultipleTasksFromTemplate: false
+task.allowMultipleTasksFromTemplate: false
 
 
 

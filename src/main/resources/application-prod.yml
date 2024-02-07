@@ -1,0 +1,14 @@
+spring:
+  h2.console:
+    enabled: true
+    path: '/console'
+    datasource:
+      url: 'jdbc:h2:file:/Users/Piotrek/IdeaProjects/ListaZadanSpring/ListaZadan-db'
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+task.allowMultipleTasksFromTemplate: false
+
+
+
