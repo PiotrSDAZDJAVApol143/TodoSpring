@@ -1,7 +1,7 @@
 package com.example.listazadanspring.controller;
 
 import com.example.listazadanspring.model.Task;
-import com.example.listazadanspring.model.TaskRepository;
+import com.example.listazadanspring.repository.TaskRepository;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ public class TaskController {
     }
     @PutMapping("/tasks/{id}")
     ResponseEntity<?> updateTasks(@PathVariable int id,@RequestBody @Valid Task toUpdate){
-        if(!taskRepo.existById(id)){
+        if(!taskRepo.existsById(id)){
             return  ResponseEntity.notFound().build();
         }
         toUpdate.setId(id);

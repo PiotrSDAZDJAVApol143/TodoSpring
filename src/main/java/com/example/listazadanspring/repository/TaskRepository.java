@@ -1,5 +1,6 @@
-package com.example.listazadanspring.model;
+package com.example.listazadanspring.repository;
 
+import com.example.listazadanspring.model.Task;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,7 +13,7 @@ public interface TaskRepository {
     Task save(Task entity);
     Page<Task> findAll(Pageable page);
     List<Task> findByDoneCheck(boolean doneCheck);
-    boolean existById(Integer id);
+    boolean existsById(Integer id);
 
 
 }
