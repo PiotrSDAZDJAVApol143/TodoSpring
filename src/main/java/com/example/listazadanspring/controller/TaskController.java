@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,11 @@ public class TaskController {
         logger.warn("Exposing all the Tasks");
         return ResponseEntity.ok(taskRepo.findAll());
     }
+    @PostMapping("/tasks")
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        Task createdTask = taskRepo.save(task);
+        return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
+    }
 
     @GetMapping(value = "/tasks")
     ResponseEntity<List<Task>>readAllTasks(Pageable page){
@@ -36,8 +42,10 @@ public class TaskController {
         if(!taskRepo.existsById(id)){
             return  ResponseEntity.notFound().build();
         }
-        toUpdate.setId(id);
-        taskRepo.save(toUpdate);
+        taskRepo.findById(id)
+                .ifPresent(task->{task.updateFrom(toUpdate);
+                taskRepo.save(task);
+                });
         return ResponseEntity.noContent().build();
     }
     @Transactional
