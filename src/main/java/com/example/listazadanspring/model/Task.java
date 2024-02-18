@@ -41,5 +41,9 @@ public class Task{
         doneCheck = source.doneCheck;
         deadline = source.deadline;
     }
+    public Task(String description, LocalDateTime deadline){
+        this.deadline=deadline;
+        this.description=description;
+    }
 
 }

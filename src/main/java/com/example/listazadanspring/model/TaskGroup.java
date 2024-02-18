@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Table(name = "tasks_groups")
-public class TaskGroup extends Audit {
+public class TaskGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.NONE)
@@ -26,7 +26,7 @@ public class TaskGroup extends Audit {
     @Column(name = "done_check")
     private boolean doneCheck;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskGroups")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskGroup")
 
     private Set<Task> taskList;
 
