@@ -4,14 +4,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
 
 
 @Embeddable
-
-class Audit {
+@Component
+public class Audit {
     @Column(name = "created_on", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdOn;
     @Column(name = "updated_on", columnDefinition = "TIMESTAMP")
@@ -26,4 +27,6 @@ class Audit {
     void preMerge() {
         updatedOn = LocalDateTime.now();
     }
+
+
 }

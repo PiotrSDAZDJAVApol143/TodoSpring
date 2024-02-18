@@ -1,3 +1,4 @@
+--CREATE SEQUENCE tasks_groups_seq START WITH 1 INCREMENT BY 1;
 create table tasks_groups(
                              id INT PRIMARY KEY AUTO_INCREMENT,
                              description VARCHAR(100) NOT NULL,
