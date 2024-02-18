@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @Table(name = "tasks")
-public class Task {
+public class Task{
     //test
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,29 +24,22 @@ public class Task {
     @Column(name = "description")
     @NotNull
     private String description;
-    @Column(name = "doneCheck")
+    @Column(name = "done_check")
     private boolean doneCheck;
     private LocalDateTime deadline;
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private LocalDateTime createdOn;
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private LocalDateTime updatedOn;
+
+   @Embedded
+   @Setter(AccessLevel.PRIVATE)
+   @Getter(AccessLevel.NONE)
+   private Audit audit = new Audit();
+    @ManyToOne
+    @JoinColumn(name = "task_group_id")
+    private TaskGroup taskGroup;
 
     public void updateFrom(final Task source){
         description = source.description;
         doneCheck = source.doneCheck;
         deadline = source.deadline;
     }
-    // metoda ukrywająca ID
-    @PrePersist
-    void prePersist(){
-        createdOn = LocalDateTime.now();
-    }
-    // Hibernetowa metoda wyświetli kiedy powstała kolumna (forma jednorazowego settera)
-    @PreUpdate
-    void preMarge(){
-        updatedOn = LocalDateTime.now();
-    }
+
 }
