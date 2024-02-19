@@ -4,14 +4,20 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
-@Component
+@Getter
+@Setter
 public class Audit {
     @Column(name = "created_on", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdOn;
