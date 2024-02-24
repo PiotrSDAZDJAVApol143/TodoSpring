@@ -6,6 +6,7 @@ import com.example.listazadanspring.model.TaskGroup;
 import com.example.listazadanspring.repository.TaskGroupRepository;
 import com.example.listazadanspring.repository.TaskRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class TaskGroupService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void toggleGroup(int groupId) {
         if (taskRepository.existsByDoneCheckIsFalseAndId(groupId)) {
             throw new IllegalStateException("Check your group task. Group has undone tasks.");
@@ -40,6 +42,7 @@ public class TaskGroupService {
         TaskGroup result = taskGroupRepository.findById(groupId)
                 .orElseThrow(() -> new IllegalArgumentException("Task group with given ID not found"));
         result.setDoneCheck(!result.isDoneCheck());
+       // taskGroupRepository.save(result);
     }
 
 

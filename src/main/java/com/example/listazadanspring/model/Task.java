@@ -14,17 +14,17 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "tasks")
+//@Table(name = "tasks")
 public class Task{
     //test
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.PRIVATE)
     private int id;
-    @Column(name = "description")
+    //@Column(name = "description")
     @NotNull
     private String description;
-    @Column(name = "done_check")
+   // @Column(name = "done_check")
     private boolean doneCheck;
     private LocalDateTime deadline;
 

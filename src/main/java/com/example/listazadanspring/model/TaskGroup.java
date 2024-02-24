@@ -14,24 +14,24 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "tasks_groups")
+//@Table(name = "tasks_groups")
 public class TaskGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Setter(AccessLevel.NONE)
     private int id;
-    @Column(name = "description")
+    //@Column(name = "description")
     @NotNull
     private String description;
-    @Column(name = "done_check")
+    //@Column(name = "done_check")
     private boolean doneCheck;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskGroup")
 
     private Set<Task> taskList;
 
-  //  @Embedded
-  //  private Audit audit = new Audit();
+  @Embedded
+   private Audit audit = new Audit();
 
 
 }
