@@ -20,7 +20,7 @@ public class Task{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.PRIVATE)
-    private int id;
+    private Long id;
     //@Column(name = "description")
     @NotNull
     private String description;
@@ -45,5 +45,6 @@ public class Task{
         this.deadline=deadline;
         this.description=description;
     }
+
 
 }

@@ -35,7 +35,7 @@ public class TaskGroupService {
     }
 
     @Transactional
-    public void toggleGroup(int groupId) {
+    public void toggleGroup(Long groupId) {
         if (taskRepository.existsByDoneCheckIsFalseAndId(groupId)) {
             throw new IllegalStateException("Check your group task. Group has undone tasks.");
         }

@@ -18,7 +18,8 @@ public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepo;
 
-    public TaskController(TaskRepository taskRepo) {
+    public TaskController(final TaskRepository taskRepo) {
+
         this.taskRepo = taskRepo;
     }
 
@@ -41,14 +42,14 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    ResponseEntity<Task> readTask(@PathVariable int id) {
+    ResponseEntity<Task> readTask(@PathVariable Long id) {
         return taskRepo.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/tasks/{id}")
-    ResponseEntity<?> updateTask(@PathVariable int id, @RequestBody @Valid Task toUpdate) {
+    ResponseEntity<?> updateTask(@PathVariable Long id, @RequestBody @Valid Task toUpdate) {
         if (!taskRepo.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -62,7 +63,7 @@ public class TaskController {
 
     @Transactional
     @PatchMapping("/tasks/{id}")
-    public ResponseEntity<?> toggleTask(@PathVariable int id) {
+    public ResponseEntity<?> toggleTask(@PathVariable Long id) {
         if (!taskRepo.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
