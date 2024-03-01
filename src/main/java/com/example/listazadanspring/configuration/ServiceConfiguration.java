@@ -1,4 +1,4 @@
-package com.example.listazadanspring.service;
+package com.example.listazadanspring.configuration;
 
 import org.springframework.context.annotation.Configuration;
 

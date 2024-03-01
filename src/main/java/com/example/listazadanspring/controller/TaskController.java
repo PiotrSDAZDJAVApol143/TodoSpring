@@ -2,6 +2,7 @@ package com.example.listazadanspring.controller;
 
 import com.example.listazadanspring.model.Task;
 import com.example.listazadanspring.repository.TaskRepository;
+import com.example.listazadanspring.service.TaskService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,16 +13,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
     private final TaskRepository taskRepo;
+    private  final TaskService taskService;
 
-    public TaskController(final TaskRepository taskRepo) {
+    public TaskController(final TaskRepository taskRepo, TaskService taskService) {
 
         this.taskRepo = taskRepo;
+        this.taskService = taskService;
     }
 
     @PostMapping("/add")
@@ -31,9 +35,9 @@ public class TaskController {
     }
 
     @GetMapping(value = "/all", params = {"!sort", "!page", "!size"})
-    ResponseEntity<List<Task>> readAllTasks() {
+    CompletableFuture<ResponseEntity<List<Task>>> readAllTasks() {
         logger.warn("Exposing all the tasks!");
-        return ResponseEntity.ok(taskRepo.findAll());
+     return   taskService.findAllAsync().thenApply(ResponseEntity::ok);
     }
 
     @GetMapping("/all")

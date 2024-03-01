@@ -10,4 +10,10 @@ spring:
 
 task.template.allowMultipleTasksFromTemplate: false
 
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+
 
