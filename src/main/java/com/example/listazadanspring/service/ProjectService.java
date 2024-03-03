@@ -2,6 +2,7 @@ package com.example.listazadanspring.service;
 
 import com.example.listazadanspring.configuration.TaskConfiguration;
 import com.example.listazadanspring.dto.GroupReadModel;
+import com.example.listazadanspring.dto.ProjectWriteModel;
 import com.example.listazadanspring.model.Project;
 import com.example.listazadanspring.model.Task;
 import com.example.listazadanspring.model.TaskGroup;
@@ -50,5 +51,9 @@ public class ProjectService {
                     return targetGroup;
                 }).orElseThrow(() -> new IllegalArgumentException("Project with given id not found"));
         return new GroupReadModel(result);
+    }
+
+    public Project save(final ProjectWriteModel toSave) {
+        return repository.save(toSave.toProject());
     }
 }

@@ -31,24 +31,33 @@ public class TaskGroupController {
 
     @PostMapping("/add")
     ResponseEntity<GroupReadModel> createGroup(@RequestBody @Valid GroupWriteModel toCreate) {
-        return ResponseEntity.created(URI.create("/")).body(taskGroupService.createGroup(toCreate));
+        GroupReadModel result = taskGroupService.createGroup(toCreate);
+        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
     @GetMapping
     ResponseEntity<List<GroupReadModel>> readAllGroups() {
-     return ResponseEntity.ok(taskGroupService.readAll());
+        return ResponseEntity.ok(taskGroupService.readAll());
     }
+
     @GetMapping("/{id}")
-    ResponseEntity<List<Task>> readAllTaskFromGroup(@PathVariable Long id){
+    ResponseEntity<List<Task>> readAllTaskFromGroup(@PathVariable Long id) {
         return ResponseEntity.ok(taskRepo.findAllByTaskGroup_Id(id));
     }
 
     @Transactional
     @PatchMapping("/toggle/{id}")
     public ResponseEntity<?> toggleGroup(@PathVariable Long id) {
-      taskGroupService.toggleGroup(id);
+        taskGroupService.toggleGroup(id);
         return ResponseEntity.noContent().build();
     }
 
-
+    @ExceptionHandler(IllegalArgumentException.class)
+    ResponseEntity<String> handleIllegalArgument(IllegalArgumentException e) {
+        return ResponseEntity.notFound().build();
+    }
+    @ExceptionHandler(IllegalArgumentException.class)
+    ResponseEntity<String> handleIllegalState(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }

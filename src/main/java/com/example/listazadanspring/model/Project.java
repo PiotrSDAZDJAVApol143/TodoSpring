@@ -28,7 +28,7 @@ public class Project {
         this.id = id;
     }
 
-    void setDescription(final String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -40,7 +40,7 @@ public class Project {
         this.groups = groups;
     }
 
-    void setSteps(final Set<ProjectStep> steps) {
+    public void setSteps(final Set<ProjectStep> steps) {
         this.steps = steps;
     }
 
